@@ -1,0 +1,27 @@
+module clock_div4_tb;
+
+  reg clk_in;
+  reg rst_n;
+  wire clk_out;
+
+  clock_div4 uut (
+    .clk_in(clk_in),
+    .rst_n(rst_n),
+    .clk_out(clk_out)
+  );
+
+  // Generate clock (10ns period → 100MHz)
+  initial begin
+    clk_in = 0;
+    forever #5 clk_in = ~clk_in;
+  end
+
+  initial begin
+    rst_n = 0;
+    #20;
+    rst_n = 1;
+    #200;
+    $stop;
+  end
+
+endmodule
